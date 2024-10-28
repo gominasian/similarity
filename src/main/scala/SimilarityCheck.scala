@@ -1,0 +1,17 @@
+import core.adapters.FileInputAdapter
+import core.models.TextPreparator
+import core.services.DocumentSimilarityServiceImpl
+import org.apache.spark.sql.SparkSession
+
+object SimilarityCheck extends App {
+
+  implicit val spark: SparkSession = SparkSession.builder
+    .appName("Document Similarity Pipeline")
+    .config("spark.master", "local")
+    .getOrCreate()
+
+  val documentSimilarityService =
+    new DocumentSimilarityServiceImpl(new FileInputAdapter, TextPreparator)
+
+  documentSimilarityService.checkSimilarity()
+}

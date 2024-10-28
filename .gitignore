@@ -1,0 +1,79 @@
+# Ignore IntelliJ IDEA specific files
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# Ignore build output directories
+/target/
+/out/
+
+# Ignore SBT specific files
+/.idea_modules/
+/.project
+/.classpath
+/lib_managed/
+/src_managed/
+/.ensime_cache
+/.history
+/.classpath
+/.project
+/.settings
+/.scala_dependencies
+/.sbt/
+.ensime
+
+# Ignore Scala Steward cache
+.steward/
+
+# Ignore MacOS specific files
+.DS_Store
+
+# Ignore logs and temporary files
+logs/
+*.log
+*.pid
+*.pid.lock
+/tmp/
+/dist/
+
+# Ignore compiled class files
+*.class
+
+# Ignore IntelliJ Scala plugin specific files
+.scala_dependencies
+.idea_modules/
+
+# Ignore generated files by IntelliJ
+.idea/workspace.xml
+.idea/libraries
+.idea/shelf/
+.idea/scala_compiler.xml
+.idea/scala_settings.xml
+.idea/scopes/scope_settings.xml
+.idea/tasks.xml
+.idea/taskProfiles.xml
+.idea/.idea-workspace.xml
+.idea/codeStyles/codeStyleConfig.xml
+.idea/dictionaries/
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+.idea/gradle.xml
+.idea/artifacts/
+/.idea/jarRepositories.xml
+.idea/sqlDataSources.xml
+.idea/sql_dialects.xml
+.idea/modules/
+
+# Ignore package files
+*.jar
+*.war
+*.ear
+/.bsp/
+/.idea/
+/project/project/
+/project/target/
