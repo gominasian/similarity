@@ -1,13 +1,20 @@
-FROM sbt:latest
+FROM hseeberger/scala-sbt:11.0.11_1.5.5_2.13.6 as builder
 
 WORKDIR /app
 
-COPY project/ project/
-COPY build.sbt .
-COPY src/ src/
+COPY build.sbt ./
+COPY project ./project
 
-RUN sbt compile
+RUN sbt update
 
-EXPOSE 9000
+COPY . .
+RUN sbt assembly
 
-CMD ["sbt", "run"]
+FROM openjdk:11-jre-slim
+
+WORKDIR /app
+COPY --from=builder /app/target/scala-2.13/*.jar /app/app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

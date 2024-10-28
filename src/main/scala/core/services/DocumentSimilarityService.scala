@@ -1,5 +1,6 @@
 package core.services
 
+import cats.effect.IO
 import core.adapters.FileInputAdapter
 import core.models._
 import org.apache.spark.ml.linalg.Vector
@@ -8,15 +9,23 @@ import org.apache.spark.sql.{Row, SparkSession}
 import scala.io.StdIn
 
 trait DocumentSimilarityService {
-  def checkSimilarity(): Option[BigDecimal]
+  def checkSimilarityConsole(): Option[BigDecimal]
+  def checkSimilarity(file0: IO[String], file1: IO[String]): IO[BigDecimal]
 }
 class DocumentSimilarityServiceImpl(
   fileInputAdapter: FileInputAdapter,
   dataPreparator: DataPreparator
 )(implicit sparkSession: SparkSession)
     extends DocumentSimilarityService {
+  import sparkSession.implicits._
+  override def checkSimilarity(file0: IO[String], file1: IO[String]): IO[BigDecimal] = for {
+    file0       <- file0
+    file1       <- file1
+    preparedDocs = dataPreparator.prepareData(Seq(file0, file1).toDS())
+    evaluation   = compareDocumentsByIndex(preparedDocs, 0, 1)
+  } yield evaluation
 
-  override def checkSimilarity(): Option[BigDecimal] = for {
+  override def checkSimilarityConsole(): Option[BigDecimal] = for {
     path            <- Option(getUserInput("Enter path: "))
     documents        = fileInputAdapter.getTextFilesFromPath(path)
     preparedDocs     = dataPreparator.prepareData(documents)
