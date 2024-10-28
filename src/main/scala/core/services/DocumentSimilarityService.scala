@@ -24,8 +24,12 @@ class DocumentSimilarityServiceImpl(
     indexToCompare1 <- getUserInput("Choose second document to compare: ").toIntOption
     evaluation       = compareDocumentsByIndex(preparedDocs, indexToCompare0, indexToCompare1)
   } yield {
-    println(s"For file #$indexToCompare0 and file #$indexToCompare1 cosine similarity is ${evaluation.setScale(2, BigDecimal.RoundingMode.HALF_UP)}")
+    println(
+      s"For file #$indexToCompare0 and file #$indexToCompare1 cosine similarity is ${evaluation
+          .setScale(2, BigDecimal.RoundingMode.HALF_UP)}"
+    )
     evaluation
+
   }
 
   private def getUserInput(message: String): String =
@@ -46,10 +50,10 @@ class DocumentSimilarityServiceImpl(
   }
 
   private def compareDocumentsByIndex(
-                                       documents: Array[Row],
-                                       documentIndex0: Int,
-                                       documentIndex1: Int
-                                     ): BigDecimal = {
+    documents: Array[Row],
+    documentIndex0: Int,
+    documentIndex1: Int
+  ): BigDecimal = {
     val v0 = finalValueToVector(
       documents(documentIndex0)
     )
